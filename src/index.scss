@@ -1,0 +1,107 @@
+@import "./reset.css";
+
+// Colors
+$blue: #7bc3da;
+$light-blue: #d5f0f9;
+$dark-blue: #3e7e93;
+$darker-blue: #214b58;
+
+// ======================================================================================
+
+// Typography ===========================================================================
+html {
+  font-size: 13pt;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+input {
+  font-size: 1em;
+}
+
+.headline {
+  color: #fff;
+  font-size: 4em;
+  text-align: center;
+}
+
+// ======================================================================================
+
+// Mixins ===============================================================================
+@mixin btn-hover($base-color: $dark-blue) {
+  background-color: $base-color;
+
+  &:hover,
+  &:focus {
+    background-color: lighten($base-color, 5);
+  }
+
+  &:active {
+    background-color: darken($base-color, 5);
+  }
+}
+
+// ======================================================================================
+
+// Global styles
+body {
+  background: linear-gradient($blue, $darker-blue) no-repeat;
+  height: 100vh;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.valign-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.btn {
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 25px;
+  outline: none;
+  cursor: pointer;
+  @include btn-hover();
+}
+
+.text-input {
+  background-color: $light-blue;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .headline {
+    margin-bottom: 50px;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: $blue;
+    border: $darker-blue 3px solid;
+    border-radius: 10px;
+    width: 400px;
+    height: 160px;
+
+    label {
+      color: #fff;
+      font-size: 24pt;
+    }
+  }
+}
