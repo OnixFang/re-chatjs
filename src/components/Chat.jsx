@@ -1,3 +1,7 @@
+import { io } from 'socket.io-client';
+const endpoint = 'http://rechatjsapi:9010';
+let socket;
+
 export default function Chat(props) {
   // componentDidMount() {
   //   try {
