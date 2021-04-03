@@ -31,7 +31,7 @@ export default function Chat(props) {
     <div className="chat">
       <div className="chat-rooms">
         <div className="user-info">
-          <img className="user-image" src="./assets/group.svg" alt="User image" />
+          <img className="user-image" src="./assets/user.svg" alt="User image" />
           <span className="username">{props.user.username}</span>
         </div>
         <div className="chat-room active">
