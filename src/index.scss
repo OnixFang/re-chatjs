@@ -5,6 +5,7 @@ $blue: #7bc3da;
 $light-blue: #d5f0f9;
 $dark-blue: #3e7e93;
 $darker-blue: #214b58;
+$red: #c84b4b;
 
 // Shared styles
 $chat-room-border: 1px solid #000;
@@ -56,6 +57,10 @@ button {
   &.send {
     background-image: url("./assets/send.svg");
   }
+
+  &.power {
+    background-image: url("./assets/power.svg");
+  }
 }
 
 // ======================================================================================
@@ -86,6 +91,10 @@ body {
   outline: none;
   cursor: pointer;
   @include color-hover-effect();
+
+  &.red {
+    @include color-hover-effect($red);
+  }
 
   &.icon-btn {
     font-size: 0;
@@ -155,13 +164,14 @@ body {
       padding: 10px;
       border-bottom: $chat-room-border;
 
-      .username {
-        color: #fff;
-      }
-
       .user-image {
         width: 30px;
         height: 30px;
+        margin-right: 10px;
+      }
+
+      .username {
+        color: #fff;
         margin-right: 10px;
       }
     }

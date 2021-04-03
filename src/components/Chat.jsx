@@ -1,22 +1,26 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
 const endpoint = 'http://rechatjsapi:9010';
 let socket;
 
 export default function Chat(props) {
-  // componentDidMount() {
-  //   try {
-  //     socket = io(endpoint, { transports: ['websocket'] });
+  useEffect(() => {
+    try {
+      socket = io(endpoint, { transports: ['websocket'] });
+      socket.emit('set user', props.user);
 
-  //     socket.emit('set user', this.state.user);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+      socket.on('user connected', (payload) => {
+        console.log(payload);
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
-  // componentWillUnmount() {
-  //   socket.disconnect();
-  // }
+    // Unmount function
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const message = useRef();
 
@@ -33,6 +37,9 @@ export default function Chat(props) {
         <div className="user-info">
           <img className="user-image" src="./assets/user.svg" alt="User image" />
           <span className="username">{props.user.username}</span>
+          <button className="btn red icon-btn" onClick={props.onLogout}>
+            <span className="icon power"></span>
+          </button>
         </div>
         <div className="chat-room active">
           <img className="room-image" src="./assets/group.svg" alt="Room image" />

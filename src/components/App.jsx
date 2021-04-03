@@ -15,7 +15,15 @@ export default class App extends React.Component {
     this.setState({ user: { username } });
   };
 
+  handleLogout = () => {
+    this.setState({ user: null });
+  };
+
   render() {
-    return this.state.user ? <Chat user={this.state.user} /> : <Login onLogin={this.handleLogin} />;
+    return this.state.user ? (
+      <Chat user={this.state.user} onLogout={this.handleLogout} />
+    ) : (
+      <Login onLogin={this.handleLogin} />
+    );
   }
 }
