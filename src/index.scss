@@ -108,6 +108,8 @@ body {
 
   .headline {
     margin-bottom: 50px;
+    -webkit-text-stroke: 2px #000;
+    -webkit-text-fill-color: #fff;
   }
 
   .login-form {
@@ -121,10 +123,14 @@ body {
     border-radius: 10px;
     width: 400px;
     height: 160px;
+    box-shadow: 8px 8px 4px rgba(#000000, 0.25);
 
     label {
       color: #fff;
       font-size: 24pt;
+      font-weight: bold;
+      -webkit-text-stroke: 1px #000;
+      -webkit-text-fill-color: #fff;
     }
   }
 }
@@ -139,6 +145,26 @@ body {
     width: 299px;
     background-color: $darker-blue;
     border-right: $chat-room-border;
+    box-shadow: 4px 0 4px rgba(#000, 0.5);
+    z-index: 1;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      background-color: $darker-blue;
+      padding: 10px;
+      border-bottom: $chat-room-border;
+
+      .username {
+        color: #fff;
+      }
+
+      .user-image {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
+    }
 
     .chat-room {
       display: flex;
@@ -161,6 +187,7 @@ body {
         display: flex;
         flex-direction: column;
         flex-grow: 0;
+        color: #fff;
       }
 
       &.active {
@@ -179,6 +206,9 @@ body {
       align-items: center;
       background-color: $darker-blue;
       padding: 10px;
+      border-bottom: $chat-room-border;
+      box-shadow: 0 4px 4px rgba(#000, 0.5);
+      z-index: 1;
 
       .room-name {
         color: #fff;
@@ -202,6 +232,8 @@ body {
       padding: 10px;
       justify-self: flex-end;
       background-color: $blue;
+      border-top: $chat-room-border;
+      z-index: 1;
 
       .text-input {
         margin-right: 10px;
