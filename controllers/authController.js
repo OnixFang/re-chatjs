@@ -1,17 +1,20 @@
+const HttpError = require('../customErrors/HttpError');
 const { addUser, getUser } = require('./userController');
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
   console.log('Login request', req.body);
   const { username } = req.body;
-  const user = getUser(username);
 
-  if (user) {
-    console.log('This user is already logged in');
-    res.status(403).send('This user is already logged in');
-  } else {
-    addUser(username);
-    console.log(`${username} logged in successfully`);
-    res.status(200).json({ username });
+  try {
+    const user = await getUser(username);
+    console.log(`${user.username} logged in successfully`);
+    res.status(200).json(user);
+  } catch (error) {
+    if (error instanceof HttpError) {
+      res.status(error.status).send(error.message);
+    } else {
+      res.status(500).send(error.message);
+    }
   }
 };
 

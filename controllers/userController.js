@@ -1,14 +1,5 @@
-const fs = require('fs').promises;
-const filename = 'mockdata.json';
+const { getDatabase } = require('./databaseController');
 const HttpError = require('../customErrors/HttpError');
-
-const getDatabase = async () => {
-  try {
-    return JSON.parse(await fs.readFile(filename));
-  } catch (error) {
-    throw error;
-  }
-};
 
 const getUser = async (username) => {
   try {
