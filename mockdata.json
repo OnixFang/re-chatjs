@@ -1,10 +1,16 @@
 {
-  "users": [{ "username": "Test-User" }],
+  "users": [
+    {
+      "username": "Test-User",
+      "createdDate": 1617549000047
+    }
+  ],
   "rooms": [
     {
       "name": "live chat",
       "users": [],
-      "messages": []
+      "messages": [],
+      "createdDate": 1617549000047
     }
   ]
 }

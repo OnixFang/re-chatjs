@@ -1,4 +1,4 @@
-const { getDatabase } = require('./databaseController');
+const { getDatabase, saveDatabase } = require('./databaseController');
 const HttpError = require('../customErrors/HttpError');
 
 const getUser = async (username) => {
@@ -15,16 +15,19 @@ const getUser = async (username) => {
   }
 };
 
-const addUser = async (username) => {
+const addUser = async (credentials) => {
   try {
     const database = await getDatabase();
 
-    if (!database.users.find((user) => user.username.toLowerCase() === username.toLowerCase())) {
+    if (!database.users.find((user) => user.username.toLowerCase() === credentials.username.toLowerCase())) {
       const newUser = {
-        username,
+        username: credentials.username,
+        // password: credentials.password,
+        createdDate: Date.now(),
       };
+
       database.users.push(newUser);
-      await fs.writeFile(filename, database);
+      await saveDatabase(JSON.stringify(database, null, 2));
 
       return newUser;
     } else {
