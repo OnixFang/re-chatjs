@@ -9,9 +9,18 @@ const getDatabase = async () => {
   }
 };
 
-const saveDatabase = async (database) => {
+const saveDatabase = async (database, item) => {
   try {
-    await fs.writeFile(filename, JSON.stringify(database, null, 2), 'utf8');
+    const currentDatabase = JSON.stringify(await getDatabase(), null, 2);
+    const newDatabase = JSON.stringify(database, null, 2);
+    if (currentDatabase !== newDatabase) {
+      if (item) {
+        item.updatedDate = Date.now();
+      }
+      await fs.writeFile(filename, newDatabase, 'utf8');
+    } else {
+      console.log('There are no changes to make to the database');
+    }
   } catch (error) {
     throw error;
   }
