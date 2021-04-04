@@ -15,13 +15,13 @@ const getUser = async (username) => {
   }
 };
 
-const addUser = async (credentials) => {
+const addUser = async (userInfo) => {
   try {
     const database = await getDatabase();
 
-    if (!database.users.find((user) => user.username.toLowerCase() === credentials.username.toLowerCase())) {
+    if (!database.users.find((user) => user.username.toLowerCase() === userInfo.username.toLowerCase())) {
       const newUser = {
-        username: credentials.username,
+        username: userInfo.username,
         // password: credentials.password,
         createdDate: Date.now(),
       };

@@ -1,9 +1,8 @@
-const { addUser, getUser } = require('./userController');
+const { addUser, getUser } = require('../controllers/userController');
 
 const login = async (req, res, next) => {
-  console.log('Login request', req.body);
   const { username } = req.body;
-
+  console.log('Login request', req.body);
   try {
     const user = await getUser(username);
     console.log(`${user.username} logged in successfully`);
