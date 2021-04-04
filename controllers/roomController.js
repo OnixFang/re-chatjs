@@ -49,15 +49,53 @@ const addRoom = async (roomInfo) => {
   }
 };
 
-const addUserToRoom = async (roomName, username) => {
-  try {
-    const database = await getDatabase();
-    const room = findRoom(database, roomName);
-    room.users.push(username);
+const addUserToRoom = async (roomInfo) => {
+  const { roomName, users } = roomInfo;
+  if (typeof roomName === 'string' && typeof users !== 'string' && users.hasOwnProperty('length')) {
+    try {
+      const database = await getDatabase();
+      const room = findRoom(database, roomName);
+      users.forEach((user) => {
+        if (room.users.indexOf(user) === -1) {
+          room.users.push(user);
+        }
+      });
 
-    return { rooms: database.rooms, room };
-  } catch (error) {
-    throw error;
+      await saveDatabase(database, room);
+
+      return room;
+    } catch (error) {
+      throw error;
+    }
+  } else {
+    throw new HttpError('Bad request', 400);
+  }
+};
+
+const removeUserFromRoom = async (roomInfo) => {
+  const { roomName, users } = roomInfo;
+  if (typeof roomName === 'string' && typeof users !== 'string' && users.hasOwnProperty('length')) {
+    try {
+      const database = await getDatabase();
+      const room = findRoom(database, roomName);
+
+      room.users = room.users.filter((user) => {
+        for (let index = 0; index < users.length; index++) {
+          if (user === users[index]) {
+            return false;
+          }
+        }
+        return user;
+      });
+
+      await saveDatabase(database, room);
+
+      return room;
+    } catch (error) {
+      throw error;
+    }
+  } else {
+    throw new HttpError('Bad request', 400);
   }
 };
 
@@ -65,4 +103,5 @@ module.exports = {
   getRoom,
   addRoom,
   addUserToRoom,
+  removeUserFromRoom,
 };
