@@ -9,4 +9,15 @@ const getDatabase = async () => {
   }
 };
 
-module.exports = { getDatabase };
+const saveDatabase = async (data) => {
+  try {
+    await fs.writeFile(filename, data, 'utf8');
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  getDatabase,
+  saveDatabase,
+};
