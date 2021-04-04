@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { login, register } = require('./auth');
-const { addUserToRoom } = require('../controllers/roomController');
+const { getRoomInfo, createRoom } = require('./room');
 
 // User API
 router.post('/login', login);
 router.post('/register', register);
-router.post('/updateRoom', addUserToRoom);
+router.get('/room', getRoomInfo);
+router.post('/room', createRoom);
 
 module.exports = router;
