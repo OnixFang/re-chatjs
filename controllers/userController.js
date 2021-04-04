@@ -27,7 +27,7 @@ const addUser = async (credentials) => {
       };
 
       database.users.push(newUser);
-      await saveDatabase(JSON.stringify(database, null, 2));
+      await saveDatabase(database);
 
       return newUser;
     } else {

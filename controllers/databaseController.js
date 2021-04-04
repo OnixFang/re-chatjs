@@ -9,9 +9,9 @@ const getDatabase = async () => {
   }
 };
 
-const saveDatabase = async (data) => {
+const saveDatabase = async (database) => {
   try {
-    await fs.writeFile(filename, data, 'utf8');
+    await fs.writeFile(filename, JSON.stringify(database, null, 2), 'utf8');
   } catch (error) {
     throw error;
   }
