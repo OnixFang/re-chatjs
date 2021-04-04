@@ -1,0 +1,10 @@
+{
+  "users": [{ "username": "Test-User" }],
+  "rooms": [
+    {
+      "name": "live chat",
+      "users": [],
+      "messages": []
+    }
+  ]
+}
