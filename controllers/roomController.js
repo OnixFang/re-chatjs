@@ -25,11 +25,13 @@ const addRoom = async (roomInfo) => {
     try {
       const database = await getDatabase();
       if (!database.rooms.find((room) => room.name === roomName)) {
+        const newDate = Date.now();
         const newRoom = {
           name: roomName,
           users,
           messages: [],
-          createdDate: Date.now(),
+          createdDate: newDate,
+          updatedDate: newDate,
         };
 
         database.rooms.push(newRoom);

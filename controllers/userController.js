@@ -20,10 +20,12 @@ const addUser = async (userInfo) => {
     const database = await getDatabase();
 
     if (!database.users.find((user) => user.username.toLowerCase() === userInfo.username.toLowerCase())) {
+      const newDate = Date.now();
       const newUser = {
         username: userInfo.username,
         // password: credentials.password,
-        createdDate: Date.now(),
+        createdDate: newDate,
+        updatedDate: newDate,
       };
 
       database.users.push(newUser);
