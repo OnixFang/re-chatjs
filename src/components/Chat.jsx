@@ -7,6 +7,7 @@ export default function Chat(props) {
   const [room, setRoom] = useState('live chat');
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
+  let [isOpen, setIsOpen] = useState(false);
 
   const message = useRef();
 
@@ -37,9 +38,13 @@ export default function Chat(props) {
     message.current.value = '';
   };
 
+  const openChatRooms = () => {
+    setIsOpen(!isOpen);
+  };
+
   useEffect(() => {
     try {
-      socket = io(endpoint, { transports: ['websocket'] });
+      socket = io(props.endpoint, { transports: ['websocket'] });
       if (props.user) {
         socket.emit('set user', { user: props.user });
       }
@@ -63,7 +68,12 @@ export default function Chat(props) {
 
   return (
     <div className="chat">
-      <div className="chat-rooms">
+      <div className={`chat-rooms ${isOpen ? 'open' : ''}`}>
+        <div className={`menu-button ${isOpen ? 'open' : ''}`} onClick={openChatRooms}>
+          <span className="top"></span>
+          <span className="middle"></span>
+          <span className="bottom"></span>
+        </div>
         <div className="user-info">
           <img className="user-image" src="./assets/user.svg" alt="User image" />
           <span className="username">{props.user.username}</span>
@@ -78,6 +88,7 @@ export default function Chat(props) {
           </div>
         </div>
       </div>
+      <div className={`shade ${isOpen ? 'open' : ''}`} onClick={openChatRooms}></div>
       <div className="active-chat">
         <div className="room-bar">
           <img className="room-image" src="./assets/group.svg" alt="Room image" />
