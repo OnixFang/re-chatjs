@@ -1,12 +1,20 @@
 const liveChat = 'live chat';
 
-const joinSocketToRooms = (socket, rooms) => {
-  rooms.forEach((room) => {
-    socket.join(room);
-  });
-};
-
 const socketController = (io) => {
+  const joinSocketToRooms = (socket, rooms) => {
+    rooms.forEach((room) => {
+      socket.join(room);
+    });
+  };
+
+  const usersInRoom = () => {
+    const userArray = [];
+    io.sockets.adapter.rooms.get(liveChat).forEach((scket) => {
+      userArray.push(io.sockets.sockets.get(scket).user.username);
+    });
+    return userArray;
+  };
+
   io.on('connection', (socket) => {
     console.log('A user connected!');
     socket.join(liveChat);
@@ -23,6 +31,10 @@ const socketController = (io) => {
         message: `${user.username} joined the chat.`,
         dateSent: Date.now(),
       };
+
+      const currentUsers = usersInRoom().sort();
+
+      io.to(liveChat).emit('current users', currentUsers);
       io.to(liveChat).emit('chat message', message);
     });
 

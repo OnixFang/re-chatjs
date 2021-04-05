@@ -49,6 +49,10 @@ export default function Chat(props) {
       socket.on('chat message', (msg) => {
         handleNewMessage(msg);
       });
+
+      socket.on('current users', (users) => {
+        setRoom({ ...room, users });
+      });
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +83,12 @@ export default function Chat(props) {
       <div className="active-chat">
         <div className="room-bar">
           <img className="room-image" src="./assets/group.svg" alt="Room image" />
-          <span className="room-name">{room.name}</span>
+          <div className="room-info">
+            <span className="room-name">{room.name}</span>
+            <span className="users">
+              {room.users.map((user, index, array) => (index === array.length - 1 ? user : `${user}, `))}
+            </span>
+          </div>
         </div>
         <div className="chat-window">
           {room.messages.map((msg) => (

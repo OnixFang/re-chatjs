@@ -220,8 +220,18 @@ body {
       box-shadow: 0 4px 4px rgba(#000, 0.5);
       z-index: 1;
 
-      .room-name {
-        color: #fff;
+      .room-info {
+        display: flex;
+        flex-direction: column;
+
+        .users,
+        .room-name {
+          color: #fff;
+        }
+
+        .users {
+          font-size: 10px;
+        }
       }
 
       .room-image {
