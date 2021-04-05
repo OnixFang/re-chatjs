@@ -21,12 +21,13 @@ const socketController = (io) => {
         from: 'Server',
         room: liveChat,
         message: `${user.username} joined the chat.`,
+        dateSent: Date.now(),
       };
-      io.to(liveChat).emit('user joined', message);
+      io.to(liveChat).emit('chat message', message);
     });
 
-    socket.on('chat message', (payload) => {
-      console.log(payload);
+    socket.on('chat message', (msg) => {
+      io.to(msg.room).emit('chat message', msg);
     });
 
     socket.on('disconnect', (reason) => {

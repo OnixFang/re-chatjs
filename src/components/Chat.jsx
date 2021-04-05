@@ -1,16 +1,54 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
 const endpoint = 'http://rechatjsapi:9010';
 let socket;
 
 export default function Chat(props) {
+  const [room, setRoom] = useState({
+    name: 'live chat',
+    messages: [],
+    users: [],
+  });
+
+  const message = useRef();
+
+  const handleNewMessage = (message) => {
+    const newMessage = { ...message };
+    let type = '';
+    if (message.from === 'Server') {
+      type = 'from-server';
+    } else if (message.from === props.user.username) {
+      type = 'from-me';
+    }
+    newMessage.type = type;
+
+    setRoom((prevState) => ({ ...prevState, messages: [...prevState.messages, newMessage] }));
+    console.log(newMessage);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const chatMessage = {
+      from: props.user.username,
+      room: 'live chat',
+      message: message.current.value,
+      dateSent: Date.now(),
+    };
+
+    socket.emit('chat message', chatMessage);
+    message.current.value = '';
+  };
+
   useEffect(() => {
     try {
       socket = io(endpoint, { transports: ['websocket'] });
-      socket.emit('set user', props.user);
+      if (props.user) {
+        socket.emit('set user', { user: props.user });
+      }
 
-      socket.on('user connected', (payload) => {
-        console.log(payload);
+      socket.on('chat message', (msg) => {
+        handleNewMessage(msg);
       });
     } catch (error) {
       console.log(error);
@@ -21,15 +59,6 @@ export default function Chat(props) {
       socket.disconnect();
     };
   }, []);
-
-  const message = useRef();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(message.current.value);
-    message.current.value = '';
-  };
 
   return (
     <div className="chat">
@@ -59,7 +88,13 @@ export default function Chat(props) {
           <img className="room-image" src="./assets/group.svg" alt="Room image" />
           <span className="room-name">Live chat</span>
         </div>
-        <div className="chat-window"></div>
+        <div className="chat-window">
+          {room.messages.map((msg) => (
+            <div key={msg.dateSent} className={`chat-message ${msg.type}`}>
+              <span className="msg">{msg.message}</span>
+            </div>
+          ))}
+        </div>
         <form className="chat-input" onSubmit={handleSubmit} autoComplete="off">
           <input
             className="text-input"

@@ -232,8 +232,36 @@ body {
     }
 
     .chat-window {
+      display: flex;
+      flex-direction: column;
       background-color: $dark-blue;
       flex-grow: 1;
+      padding: 10px;
+
+      .chat-message {
+        align-self: flex-start;
+        background-color: $light-blue;
+        border-radius: 10px;
+        max-width: 400px;
+        min-width: 100px;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+
+        &.from-server {
+          align-self: center;
+
+          .msg {
+            display: block;
+            line-height: 10px;
+            font-size: 12pt;
+          }
+        }
+
+        &.from-me {
+          align-self: flex-end;
+        }
+      }
     }
 
     .chat-input {
