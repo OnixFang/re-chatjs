@@ -39,4 +39,4 @@ const server = app.listen(PORT, () => {
   console.log(`App running on http://${HOST}:${PORT}`);
 });
 const io = socketIo(server);
-io.on('connection', socketController);
+socketController(io);
