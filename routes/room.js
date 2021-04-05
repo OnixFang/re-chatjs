@@ -1,4 +1,4 @@
-const { addRoom, getRoom, addUserToRoom, removeUserFromRoom } = require('../controllers/roomController');
+const { addRoom, getRoom, addUserToRoom, removeUserFromRoom, getUserRooms } = require('../controllers/roomController');
 
 const getRoomInfo = async (req, res, next) => {
   const { roomName } = req.body;
@@ -18,6 +18,16 @@ const createRoom = async (req, res, next) => {
     const room = await addRoom(req.body);
     console.log('Created room', room);
     res.status(200).json(room);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getRoomList = async (req, res, next) => {
+  console.log('Getting room list for', req.body.username);
+  try {
+    const rooms = await getUserRooms(req.body.username);
+    res.status(200).json(rooms);
   } catch (error) {
     next(error);
   }
@@ -45,6 +55,7 @@ const leaveRoom = async (req, res, next) => {
 
 module.exports = {
   getRoomInfo,
+  getRoomList,
   createRoom,
   joinRoom,
   leaveRoom,

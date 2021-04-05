@@ -19,6 +19,21 @@ const getRoom = async (roomName) => {
   }
 };
 
+const getUserRooms = async (username) => {
+  try {
+    const database = await getDatabase();
+    const rooms = [];
+    database.rooms.map((room) => {
+      if (room.users.indexOf(username) !== -1) {
+        rooms.push(room.name);
+      }
+    });
+    return rooms;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const addRoom = async (roomInfo) => {
   const { roomName, users } = roomInfo;
   if (typeof roomName === 'string' && typeof users !== 'string' && users.hasOwnProperty('length')) {
@@ -101,6 +116,7 @@ const removeUserFromRoom = async (roomInfo) => {
 
 module.exports = {
   getRoom,
+  getUserRooms,
   addRoom,
   addUserToRoom,
   removeUserFromRoom,
