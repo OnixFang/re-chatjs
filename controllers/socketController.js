@@ -1,3 +1,4 @@
+const { mockLogout } = require('../routes/mockAuth');
 const liveChat = 'live chat';
 
 const socketController = (io) => {
@@ -44,14 +45,16 @@ const socketController = (io) => {
 
     socket.on('disconnect', (reason) => {
       if (socket.user) {
+        const { username } = socket.user;
         const message = {
           from: 'Server',
           room: liveChat,
-          message: `${socket.user.username} left the chat.`,
+          message: `${username} left the chat.`,
           dateSent: Date.now(),
         };
+        mockLogout(username);
         io.to(liveChat).emit('chat message', message);
-        console.log('User disconnected: ', socket.user.username);
+        console.log('User disconnected: ', username);
       }
       console.log('Reason: ', reason);
     });
