@@ -32,6 +32,13 @@ const socketController = (io) => {
 
     socket.on('disconnect', (reason) => {
       if (socket.user) {
+        const message = {
+          from: 'Server',
+          room: liveChat,
+          message: `${socket.user.username} left the chat.`,
+          dateSent: Date.now(),
+        };
+        io.to(liveChat).emit('chat message', message);
         console.log('User disconnected: ', socket.user.username);
       }
       console.log('Reason: ', reason);
