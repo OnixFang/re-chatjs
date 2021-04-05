@@ -4,12 +4,17 @@
       "username": "Test-User",
       "createdDate": 1617549000047,
       "updatedDate": 1617549000047
+    },
+    {
+      "username": "onixfang",
+      "createdDate": 1617582238848,
+      "updatedDate": 1617582238848
     }
   ],
   "rooms": [
     {
       "name": "live chat",
-      "users": [],
+      "users": ["onixfang"],
       "messages": [],
       "createdDate": 1617549000047,
       "updatedDate": 1617549000047
