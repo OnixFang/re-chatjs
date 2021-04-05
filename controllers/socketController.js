@@ -1,5 +1,5 @@
 const { mockLogout } = require('../routes/mockAuth');
-const liveChat = 'live chat';
+const liveChat = 'Live chat';
 
 const socketController = (io) => {
   const joinSocketToRooms = (socket, rooms) => {
@@ -23,13 +23,13 @@ const socketController = (io) => {
   };
 
   io.on('connection', (socket) => {
-    console.log('A user connected!');
     socket.join(liveChat);
 
     // Get and attach user object to socket
     socket.on('set user', (payload) => {
       const { user, rooms } = payload;
       socket.user = user;
+      console.log('New user connected:', user.username);
 
       // joinSocketToRooms(socket, rooms);
 
