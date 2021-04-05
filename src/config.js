@@ -3,7 +3,7 @@ const dev = {
 };
 
 const prod = {
-  endpoint: 'https://rechatjs.herokuapp.com/',
+  endpoint: 'https://rechatjs.herokuapp.com',
 };
 
 export default process.env.NODE_ENV === 'development' ? dev : prod;
