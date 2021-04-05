@@ -23,7 +23,6 @@ export default function Chat(props) {
     newMessage.type = type;
 
     setRoom((prevState) => ({ ...prevState, messages: [...prevState.messages, newMessage] }));
-    console.log(newMessage);
   };
 
   const handleSubmit = (e) => {
@@ -91,7 +90,9 @@ export default function Chat(props) {
         <div className="chat-window">
           {room.messages.map((msg) => (
             <div key={msg.dateSent} className={`chat-message ${msg.type}`}>
+              <span className="from">{msg.from}</span>
               <span className="msg">{msg.message}</span>
+              <span className="date">{new Date(msg.dateSent).toLocaleTimeString()}</span>
             </div>
           ))}
         </div>
