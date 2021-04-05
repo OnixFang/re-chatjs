@@ -9,12 +9,19 @@
       "username": "onixfang",
       "createdDate": 1617582238848,
       "updatedDate": 1617582238848
+    },
+    {
+      "username": "bizantron",
+      "createdDate": 1617588455719,
+      "updatedDate": 1617588455719
     }
   ],
   "rooms": [
     {
       "name": "live chat",
-      "users": ["onixfang"],
+      "users": [
+        "onixfang"
+      ],
       "messages": [],
       "createdDate": 1617549000047,
       "updatedDate": 1617549000047
