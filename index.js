@@ -12,8 +12,13 @@ const { HOST, PORT } = process.env;
 app.use(express.json());
 // CORS compliant request middleware
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', `http://${HOST}:*`);
+  res.header('Access-Control-Allow-Origin', `http://${HOST}:9011`);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
+});
+app.options('*', function (req, res) {
+  res.status(200).send();
 });
 
 // Router
