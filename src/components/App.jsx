@@ -4,8 +4,6 @@ import Chat from './Chat';
 import config from '../config';
 const { endpoint } = config;
 
-console.log(process.env);
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);

@@ -12,7 +12,6 @@ const mockLogin = (req, res, next) => {
         updatedDate: Date.now(),
       };
       console.log(`${username} logged in successfully`);
-      console.log(currentUsers);
       res.status(200).json(newUser);
     } else {
       const err = new Error('Username already taken');
@@ -26,7 +25,6 @@ const mockLogin = (req, res, next) => {
 
 const mockLogout = (username) => {
   currentUsers.splice(currentUsers.indexOf(username), 1);
-  console.log(currentUsers);
 };
 
 module.exports = {

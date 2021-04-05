@@ -4,7 +4,7 @@ const endpoint = 'http://rechatjsapi:9010';
 let socket;
 
 export default function Chat(props) {
-  const [room, setRoom] = useState('live chat');
+  const [room, setRoom] = useState('Live chat');
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   let [isOpen, setIsOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function Chat(props) {
 
     const chatMessage = {
       from: props.user.username,
-      room: 'live chat',
+      room: 'Live chat',
       message: message.current.value,
       dateSent: Date.now(),
     };
@@ -84,7 +84,7 @@ export default function Chat(props) {
         <div className="chat-room active">
           <img className="room-image" src="./assets/group.svg" alt="Room image" />
           <div className="room-info">
-            <span className="room-name">Live chat</span>
+            <span className="room-name">{room}</span>
           </div>
         </div>
       </div>
