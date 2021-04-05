@@ -44,7 +44,7 @@ export default function Chat(props) {
 
   useEffect(() => {
     try {
-      socket = io(endpoint, { transports: ['websocket'] });
+      socket = io(props.endpoint, { transports: ['websocket'] });
       if (props.user) {
         socket.emit('set user', { user: props.user });
       }

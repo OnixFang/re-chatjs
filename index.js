@@ -1,4 +1,5 @@
 // Modules
+const path = require('path');
 const express = require('express');
 const socketIo = require('socket.io');
 const router = require('./routes');
@@ -10,6 +11,7 @@ const { HOST, PORT } = process.env;
 
 // Server configuration
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'build')));
 // CORS compliant request middleware
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', `http://${HOST}:9011`);

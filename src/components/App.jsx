@@ -1,7 +1,10 @@
 import React from 'react';
 import Login from './Login';
 import Chat from './Chat';
-const endpoint = 'http://rechatjsapi:9010';
+import config from '../config';
+const { endpoint } = config;
+
+console.log(process.env);
 
 export default class App extends React.Component {
   constructor(props) {
@@ -46,7 +49,7 @@ export default class App extends React.Component {
 
   render() {
     return this.state.user ? (
-      <Chat user={this.state.user} onLogout={this.handleLogout} />
+      <Chat user={this.state.user} onLogout={this.handleLogout} endpoint={endpoint} />
     ) : (
       <Login onLogin={this.handleLogin} />
     );
