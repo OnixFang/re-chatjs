@@ -4,11 +4,9 @@ const endpoint = 'http://rechatjsapi:9010';
 let socket;
 
 export default function Chat(props) {
-  const [room, setRoom] = useState({
-    name: 'live chat',
-    messages: [],
-    users: [],
-  });
+  const [room, setRoom] = useState('live chat');
+  const [messages, setMessages] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const message = useRef();
 
@@ -22,7 +20,7 @@ export default function Chat(props) {
     }
     newMessage.type = type;
 
-    setRoom((prevState) => ({ ...prevState, messages: [...prevState.messages, newMessage] }));
+    setMessages((prevState) => [...prevState, newMessage]);
   };
 
   const handleSubmit = (e) => {
@@ -50,8 +48,8 @@ export default function Chat(props) {
         handleNewMessage(msg);
       });
 
-      socket.on('current users', (users) => {
-        setRoom({ ...room, users });
+      socket.on('current users', (currentUsers) => {
+        setUsers(currentUsers);
       });
     } catch (error) {
       console.log(error);
@@ -84,14 +82,14 @@ export default function Chat(props) {
         <div className="room-bar">
           <img className="room-image" src="./assets/group.svg" alt="Room image" />
           <div className="room-info">
-            <span className="room-name">{room.name}</span>
+            <span className="room-name">{room}</span>
             <span className="users">
-              {room.users.map((user, index, array) => (index === array.length - 1 ? user : `${user}, `))}
+              {users.map((user, index, array) => (index === array.length - 1 ? user : `${user}, `))}
             </span>
           </div>
         </div>
         <div className="chat-window">
-          {room.messages.map((msg) => (
+          {messages.map((msg) => (
             <div key={msg.dateSent} className={`chat-message ${msg.type}`}>
               <span className="from">{msg.from}</span>
               <span className="msg">{msg.message}</span>
