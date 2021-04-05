@@ -75,17 +75,11 @@ export default function Chat(props) {
             <span className="room-name">Live chat</span>
           </div>
         </div>
-        <div className="chat-room">
-          <img className="room-image" src="./assets/group.svg" alt="Room image" />
-          <div className="room-info">
-            <span className="room-name">Live chat 2</span>
-          </div>
-        </div>
       </div>
       <div className="active-chat">
         <div className="room-bar">
           <img className="room-image" src="./assets/group.svg" alt="Room image" />
-          <span className="room-name">Live chat</span>
+          <span className="room-name">{room.name}</span>
         </div>
         <div className="chat-window">
           {room.messages.map((msg) => (
