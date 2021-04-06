@@ -22,6 +22,8 @@ export default function Chat(props) {
     newMessage.type = type;
 
     setMessages((prevState) => [...prevState, newMessage]);
+    const chatWindow = document.querySelector('.chat-window');
+    chatWindow.scrollTop = chatWindow.scrollHeight;
   };
 
   const handleSubmit = (e) => {
@@ -69,11 +71,6 @@ export default function Chat(props) {
   return (
     <div className="chat">
       <div className={`chat-rooms ${isOpen ? 'open' : ''}`}>
-        <div className={`menu-button ${isOpen ? 'open' : ''}`} onClick={openChatRooms}>
-          <span className="top"></span>
-          <span className="middle"></span>
-          <span className="bottom"></span>
-        </div>
         <div className="user-info">
           <img className="user-image" src="./assets/user.svg" alt="User image" />
           <span className="username">{props.user.username}</span>
@@ -88,6 +85,11 @@ export default function Chat(props) {
           </div>
         </div>
       </div>
+      <div className={`menu-button ${isOpen ? 'open' : ''}`} onClick={openChatRooms}>
+        <span className="top"></span>
+        <span className="middle"></span>
+        <span className="bottom"></span>
+      </div>
       <div className={`shade ${isOpen ? 'open' : ''}`} onClick={openChatRooms}></div>
       <div className="active-chat">
         <div className="room-bar">
@@ -101,7 +103,7 @@ export default function Chat(props) {
         </div>
         <div className="chat-window">
           {messages.map((msg) => (
-            <div key={msg.dateSent} className={`chat-message ${msg.type}`}>
+            <div id={msg.dateSent} key={msg.dateSent} className={`chat-message ${msg.type}`}>
               <span className="from">{msg.from}</span>
               <span className="msg">{msg.message}</span>
               <span className="date">{new Date(msg.dateSent).toLocaleTimeString()}</span>

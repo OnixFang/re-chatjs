@@ -167,6 +167,7 @@ body {
     box-shadow: 4px 0 4px rgba(#000, 0.5);
     box-sizing: border-box;
     z-index: 1;
+    overflow-y: auto;
 
     .user-info {
       display: flex;
@@ -216,49 +217,52 @@ body {
         background-color: $dark-blue;
       }
     }
+  }
 
-    .menu-button {
-      position: absolute;
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      top: 15px;
-      right: -35px;
-      width: 20px;
-      height: 18px;
-      cursor: pointer;
+  .menu-button {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 15px;
+    left: 15px;
+    width: 20px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 3;
+    transition: left 300ms;
 
-      .top,
-      .middle,
-      .bottom {
-        display: block;
-        background-color: #fff;
-        width: 100%;
-        height: 2px;
-        border: 1px solid #000;
-        transition: transform 200ms, opacity 200ms;
-      }
+    .top,
+    .middle,
+    .bottom {
+      display: block;
+      background-color: #fff;
+      width: 100%;
+      height: 2px;
+      border: 1px solid #000;
+      transition: transform 300ms, opacity 300ms;
+    }
 
+    .top {
+      transform-origin: top left;
+    }
+
+    .bottom {
+      transform-origin: bottom left;
+    }
+
+    &.open {
+      left: 294px;
       .top {
-        transform-origin: top left;
+        transform: rotatez(45deg);
+      }
+
+      .middle {
+        opacity: 0;
       }
 
       .bottom {
-        transform-origin: bottom left;
-      }
-
-      &.open {
-        .top {
-          transform: rotatez(45deg);
-        }
-
-        .middle {
-          opacity: 0;
-        }
-
-        .bottom {
-          transform: rotatez(-45deg);
-        }
+        transform: rotatez(-45deg);
       }
     }
   }
@@ -305,6 +309,7 @@ body {
       background-color: $dark-blue;
       flex-grow: 1;
       padding: 10px;
+      overflow-y: auto;
 
       .chat-message {
         position: relative;
@@ -383,10 +388,10 @@ body {
       &.open {
         left: 0px;
       }
+    }
 
-      .menu-button {
-        display: flex;
-      }
+    .menu-button {
+      display: flex;
     }
 
     .shade {
@@ -403,15 +408,23 @@ body {
       }
     }
 
-    .room-bar {
-      justify-content: center;
+    .active-chat {
+      .room-bar {
+        justify-content: center;
 
-      .room-image {
-        display: none;
+        .room-image {
+          display: none;
+        }
+
+        .room-info {
+          align-items: center;
+        }
       }
 
-      .room-info {
-        align-items: center;
+      .chat-window {
+        .chat-message {
+          max-width: 260px;
+        }
       }
     }
   }
