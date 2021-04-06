@@ -344,9 +344,20 @@ body {
         border-radius: 10px;
         max-width: 400px;
         min-width: 100px;
-        padding: 5px 10px 5px;
-        margin-bottom: 10px;
+        padding: 5px 10px 10px;
+        margin-bottom: 25px;
         box-sizing: border-box;
+
+        &::after {
+          content: "";
+          background-image: url("./assets/msg-tail.svg");
+          display: block;
+          position: absolute;
+          bottom: -15px;
+          left: 7px;
+          width: 32px;
+          height: 15px;
+        }
 
         span {
           position: relative;
@@ -367,6 +378,11 @@ body {
         &.from-server {
           padding: 10px;
           align-self: center;
+          margin-bottom: 10px;
+
+          &::after {
+            background-image: none;
+          }
 
           .from,
           .date {
@@ -381,6 +397,12 @@ body {
 
         &.from-me {
           align-self: flex-end;
+
+          &::after {
+            left: unset;
+            right: 7px;
+            transform: rotateY(180deg);
+          }
         }
       }
     }
