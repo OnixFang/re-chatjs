@@ -8,12 +8,12 @@ Link to live app: https://rechatjs.herokuapp.com/
 
 # Screen shots
 
-- Login page:
+- Login page:  
   ![Login page](https://i.imgur.com/tXH1tuol.png)
 
-- Chat page:
-  ![Chat page 1](https://i.imgur.com/EVJ9n1Pl.png)
-  ![Chat page 2](https://i.imgur.com/9xuvUCml.png)
+- Chat page:  
+  ![Chat page 1](https://i.imgur.com/EVJ9n1Pl.png)  
+  ![Chat page 2](https://i.imgur.com/9xuvUCml.png)  
   ![Chat page 3](https://i.imgur.com/EK4n2aml.png)
 
 # About
