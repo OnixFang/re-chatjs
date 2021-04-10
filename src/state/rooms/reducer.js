@@ -1,6 +1,14 @@
 import * as actions from './actionTypes';
 
-export default function roomReducer(state = [], action) {
+const defaultRoom = {
+  name: 'Live chat',
+  image: './assets/group.svg',
+  users: [],
+  messages: [],
+  active: false,
+};
+
+export default function roomsReducer(state = [], action) {
   switch (action.type) {
     case actions.ROOM_ADDED:
       return [...state, action.payload];
@@ -8,6 +16,6 @@ export default function roomReducer(state = [], action) {
       return state.filter((room) => room.name === action.payload);
 
     default:
-      return state;
+      return [...state, defaultRoom];
   }
 }
