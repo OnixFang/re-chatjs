@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from './Login';
-import Chat from './Chat';
+import Chat from './chat';
 import config from '../config';
 const { endpoint } = config;
 
