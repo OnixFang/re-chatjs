@@ -12,14 +12,6 @@ export default class App extends React.Component {
     };
   }
 
-  handleError = async (response) => {
-    if (!response.ok) {
-      const data = await response.text();
-      throw Error(data);
-    }
-    return response;
-  };
-
   handleLogin = async (username) => {
     const credentials = { username };
     const options = {
