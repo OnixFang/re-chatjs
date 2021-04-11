@@ -1,26 +1,16 @@
-import React from 'react';
 import Login from './Login';
-import Chat from './Chat';
+import Chat from './chat';
 import config from '../config';
+import { useSelector, useDispatch } from 'react-redux';
+import { addUser } from '../state/user/actions';
+
 const { endpoint } = config;
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null,
-    };
-  }
+export default function App(props) {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-  handleError = async (response) => {
-    if (!response.ok) {
-      const data = await response.text();
-      throw Error(data);
-    }
-    return response;
-  };
-
-  handleLogin = async (username) => {
+  const handleLogin = async (username) => {
     const credentials = { username };
     const options = {
       method: 'POST',
@@ -35,21 +25,11 @@ export default class App extends React.Component {
         throw Error(data);
       }
       const user = await response.json();
-      this.setState({ user });
+      dispatch(addUser(user));
     } catch (error) {
       alert(error);
     }
   };
 
-  handleLogout = () => {
-    this.setState({ user: null });
-  };
-
-  render() {
-    return this.state.user ? (
-      <Chat user={this.state.user} onLogout={this.handleLogout} endpoint={endpoint} />
-    ) : (
-      <Login onLogin={this.handleLogin} />
-    );
-  }
+  return user ? <Chat user={user} endpoint={endpoint} /> : <Login onLogin={handleLogin} />;
 }

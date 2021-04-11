@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addMessage, addUsers } from '../../state/rooms/actions';
 import { io } from 'socket.io-client';
 import ActiveChat from './ActiveChat';
 import RoomList from './RoomList';
 let socket;
 
 export default function Chat(props) {
-  const { user, endpoint, onLogout } = props;
-  const [activeRoom, setActiveRoom] = useState({
-    name: 'Live chat',
-    image: './assets/group.svg',
-    users: [],
-    messages: [],
-  });
-  const [rooms, setRooms] = useState(['Live chat', 'Live chat 2']);
+  const rooms = useSelector((state) => state.rooms);
+  const activeRoom = rooms.find((room) => room.active);
+  const dispatch = useDispatch();
+  const { user, endpoint } = props;
 
   const handleNewMessage = (message) => {
     let type = '';
@@ -23,9 +21,11 @@ export default function Chat(props) {
     }
     message.type = type;
 
-    setActiveRoom((prevState) => ({ ...prevState, messages: [...prevState.messages, message] }));
-    const chatWindow = document.querySelector('.chat-window');
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+    dispatch(addMessage(message));
+    if (activeRoom && activeRoom.name === message.room) {
+      const chatWindow = document.querySelector('.chat-window');
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
   };
 
   const handleSubmit = (newMessage) => {
@@ -35,16 +35,14 @@ export default function Chat(props) {
   useEffect(() => {
     try {
       socket = io(endpoint, { transports: ['websocket'] });
-      if (user) {
-        socket.emit('set user', { user: user });
-      }
+      socket.emit('set user', { user: user });
 
       socket.on('chat message', (msg) => {
         handleNewMessage(msg);
       });
 
       socket.on('current users', (currentUsers) => {
-        setActiveRoom((prevState) => ({ ...prevState, users: currentUsers }));
+        dispatch(addUsers(currentUsers));
       });
     } catch (error) {
       console.log(error);
@@ -58,7 +56,7 @@ export default function Chat(props) {
 
   return (
     <div className="chat">
-      <RoomList user={user} rooms={rooms} onLogout={onLogout} activeRoom={activeRoom.name} />
+      <RoomList rooms={rooms} activeRoom={activeRoom} />
       <ActiveChat user={user} room={activeRoom} onSubmit={handleSubmit} />
     </div>
   );

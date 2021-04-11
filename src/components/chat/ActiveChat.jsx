@@ -19,7 +19,7 @@ export default function ActiveChat(props) {
     message.current.value = '';
   };
 
-  return (
+  return room ? (
     <div className="active-chat">
       <div className="room-bar">
         <img className="room-image" src={room.image} alt="Room image" />
@@ -49,5 +49,7 @@ export default function ActiveChat(props) {
         </button>
       </form>
     </div>
+  ) : (
+    <div className="active-chat"></div>
   );
 }
