@@ -2,7 +2,7 @@ import Login from './Login';
 import Chat from './chat';
 import config from '../config';
 import { useSelector, useDispatch } from 'react-redux';
-import { addUser, removeUser } from '../state/user/actions';
+import { addUser } from '../state/user/actions';
 
 const { endpoint } = config;
 

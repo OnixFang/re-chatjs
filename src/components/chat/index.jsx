@@ -10,7 +10,7 @@ export default function Chat(props) {
   const rooms = useSelector((state) => state.rooms);
   const activeRoom = rooms.find((room) => room.active);
   const dispatch = useDispatch();
-  const { user, endpoint, onLogout } = props;
+  const { user, endpoint } = props;
 
   const handleNewMessage = (message) => {
     let type = '';
@@ -35,9 +35,7 @@ export default function Chat(props) {
   useEffect(() => {
     try {
       socket = io(endpoint, { transports: ['websocket'] });
-      if (user) {
-        socket.emit('set user', { user: user });
-      }
+      socket.emit('set user', { user: user });
 
       socket.on('chat message', (msg) => {
         handleNewMessage(msg);
@@ -58,7 +56,7 @@ export default function Chat(props) {
 
   return (
     <div className="chat">
-      <RoomList user={user} rooms={rooms} onLogout={onLogout} activeRoom={activeRoom} />
+      <RoomList rooms={rooms} activeRoom={activeRoom} />
       <ActiveChat user={user} room={activeRoom} onSubmit={handleSubmit} />
     </div>
   );
