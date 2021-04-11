@@ -1,8 +1,9 @@
 import { Fragment, useState } from 'react';
 import ChatRoom from './ChatRoom';
+import UserInfo from './userInfo';
 
 export default function RoomList(props) {
-  const { user, activeRoom } = props;
+  const { rooms, activeRoom } = props;
   let [isOpen, setIsOpen] = useState(false);
 
   const openChatRooms = () => {
@@ -12,16 +13,12 @@ export default function RoomList(props) {
   return (
     <Fragment>
       <div className={`chat-rooms ${isOpen ? 'open' : ''}`}>
-        <div className="user-info">
-          <img className="user-image" src="./assets/user.svg" alt="User image" />
-          <span className="username">{user.username}</span>
-          <button className="btn red icon-btn" onClick={props.onLogout}>
-            <span className="icon power"></span>
-          </button>
+        <UserInfo />
+        <div className="room-list">
+          {rooms.map((room) => (
+            <ChatRoom key={room.createdDate} room={room} active={room === activeRoom} />
+          ))}
         </div>
-        {props.rooms.map((room) => (
-          <ChatRoom room={room} active={room === activeRoom} />
-        ))}
       </div>
       <div className={`menu-button ${isOpen ? 'open' : ''}`} onClick={openChatRooms}>
         <span className="top"></span>

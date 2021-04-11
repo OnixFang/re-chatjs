@@ -9,16 +9,16 @@ const socketController = (io) => {
   };
 
   // Returns an array of current online users
-  const usersInRoom = () => {
+  const usersInRoom = (room) => {
     const userArray = [];
-    const chatRoom = io.sockets.adapter.rooms.get(liveChat);
+    const chatRoom = io.sockets.adapter.rooms.get(room);
     if (chatRoom) {
       chatRoom.forEach((scket) => {
         userArray.push(io.sockets.sockets.get(scket).user.username);
       });
-      return userArray;
+      return { room: room, users: userArray.sort() };
     } else {
-      return [];
+      return { room: room, users: [] };
     }
   };
 
@@ -41,7 +41,7 @@ const socketController = (io) => {
       };
 
       // Add user to current users in chat
-      const currentUsers = usersInRoom().sort();
+      const currentUsers = usersInRoom(liveChat);
       io.to(liveChat).emit('current users', currentUsers);
 
       // Send message of new user joining chat
@@ -65,8 +65,8 @@ const socketController = (io) => {
 
         // Remove user from current users in chat
         mockLogout(username);
-        const currentUsers = usersInRoom().sort();
-        if (currentUsers.length) {
+        const currentUsers = usersInRoom(liveChat);
+        if (currentUsers.users.length) {
           io.to(liveChat).emit('current users', currentUsers);
         }
 
