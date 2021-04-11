@@ -22,9 +22,16 @@ This project is purely being developed to test my react skills. Although there a
 
 The app is named after my first big personal project, Chat.js. It was made with the same purpose: test my skills, but that time it was for AngularJs. It was made with Angularjs, Node with express, socket.io, Bootstrap and MySQL. The stack for this app is (and will be once completed) the MERN stack: MongoDb, Express, React and Node.js (along with socket.io of course. I did not use any css library for this because the UI was simple enough and I also like to keep my css skills being tested, specially positioning.
 
-# Version 0.7.0b (current version)
+# Version 0.8.1b (current version)
 
-The app is currently at version 0.7.0 beta. At this point, the app is just supplying the most basic features of a chat app and maybe less.
+## Updates
+
+- Redux has been implemented.
+- User information has been isolated from the room list. Now it remains on top of the rooms in the room list rather than scrolling with them.
+
+# Version 0.7.0b
+
+The app was released at version 0.7.0b. At this point, the app is just supplying the most basic features of a chat app and maybe less. The released features are the ones below and will show up in above versions if updated:
 
 # Login page
 
@@ -61,7 +68,7 @@ This is the main page of the app. It is composed with the following components:
 
 For the app to reach its complete first version (1.0), it will need to have the following:
 
-- Redux
+- Redux - **_done!_**
 - Private chats
 - MongoDb
 
