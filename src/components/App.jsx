@@ -1,4 +1,3 @@
-import React from 'react';
 import Login from './Login';
 import Chat from './chat';
 import config from '../config';
@@ -32,9 +31,5 @@ export default function App(props) {
     }
   };
 
-  const handleLogout = () => {
-    dispatch(removeUser());
-  };
-
-  return user ? <Chat user={user} onLogout={handleLogout} endpoint={endpoint} /> : <Login onLogin={handleLogin} />;
+  return user ? <Chat user={user} endpoint={endpoint} /> : <Login onLogin={handleLogin} />;
 }
